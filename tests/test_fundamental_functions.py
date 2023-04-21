@@ -27,12 +27,15 @@ def test_dark_theme_by_time_and_user_choice():
     """
     current_time = time(hour=16)
     dark_theme_enabled_by_user = True
+    night_time = time(hour=22) <= current_time or current_time <= time(hour=6)
 
     # TODO переключите темную тему в зависимости от времени суток,
     #  но учтите что темная тема может быть включена вручную
 
-    if dark_theme_enabled_by_user is True or time(hour=22) <= current_time or current_time <= time(hour=6):
-        is_dark_theme = True
+    if dark_theme_enabled_by_user is True or dark_theme_enabled_by_user is False:
+        is_dark_theme = dark_theme_enabled_by_user
+    elif night_time:
+        is_dark_theme = night_time
     else:
         is_dark_theme = False
 
@@ -97,7 +100,7 @@ def open_browser(browser_name):
 
 def go_to_companyname_homepage(page_url):
     actual_result = replace_and_print(go_to_companyname_homepage, page_url)
-    assert actual_result == "Go To Companyname Homepage [https://companyname.com]"
+    assert actual_result == "Go To Company name Homepage [https://companyname.com]"
 
 
 def find_registration_button_on_login_page(page_url, button_text):
